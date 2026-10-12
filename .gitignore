@@ -1,3 +1,5 @@
 ﻿*.docx
 ~$*
+images/*.png
+bethe10-website/
 
