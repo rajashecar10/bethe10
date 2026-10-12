@@ -304,6 +304,45 @@ body:has(.legal:target){overflow:hidden}
 .legal p{max-width:68ch;font-size:17px;line-height:1.6}
 .legal p+p{margin-top:12px}
 .legal a{color:var(--link)}
+
+/* ===== Tablet (portrait iPads, small laptops, phones in landscape) ===== */
+@media (min-width:700px){
+  .hero-grid{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr)}
+  .hero-copy{padding-right:40px;padding-bottom:64px}
+  .hero h1{font-size:clamp(40px,6vw,56px)}
+  .hero-photo{min-height:auto}
+  .hero-mark{width:clamp(150px,19vw,300px);left:0;top:auto;bottom:7%;transform:translateX(-24%)}
+  .sport-grid{grid-template-columns:1fr 1fr;gap:24px}
+  .sport-card .ph{aspect-ratio:5/4}
+  .philo-grid{grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:40px}
+  .philo .ph{aspect-ratio:3/4}
+  .legs{grid-template-columns:repeat(3,1fr);gap:20px}
+  .principles{grid-template-columns:repeat(3,1fr);gap:28px}
+  .principles h3{font-size:clamp(28px,4.4vw,56px)}
+  .gear-grid{grid-template-columns:repeat(3,1fr)}
+  .cat-grid{grid-template-columns:repeat(4,1fr)}
+  .join-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:start}
+  .story .ph{aspect-ratio:16/9}
+}
+@media (min-width:900px){
+  .hero-copy{padding-right:72px;padding-bottom:80px}
+  .hero h1{font-size:clamp(52px,5.6vw,88px)}
+  .philo-grid{grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);gap:64px}
+  .principles{gap:40px}
+  .join-grid{gap:72px}
+  .story .ph{aspect-ratio:4/3}
+}
+
+/* ===== Phone ===== */
+@media (max-width:479px){
+  .hero .btn-row .btn{flex:1 1 100%}
+}
+.footer ul{gap:0}
+.footer ul a{padding:10px 0}
+@media (max-width:859px){
+  .footer-grid{grid-template-columns:1fr 1fr;gap:32px 24px}
+  .footer-grid>:first-child,.footer-grid>:last-child{grid-column:1/-1}
+}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -1213,10 +1252,11 @@ var PRODUCTS = [
     var spy = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
         if (!en.isIntersecting) return;
-        navLinks.forEach(function (a) { a.setAttribute("aria-current", a.getAttribute("href") === "#" + en.target.id ? "true" : "false"); });
+        var id = en.target === hero ? "main" : en.target.id;
+        navLinks.forEach(function (a) { a.setAttribute("aria-current", a.getAttribute("href") === "#" + id ? "true" : "false"); });
       });
     }, { rootMargin: "-45% 0px -50% 0px" });
-    sections.forEach(function (s) { if (s) spy.observe(s); });
+    sections.concat(hero).forEach(function (s) { if (s) spy.observe(s); });
   }
 
   // Gear showcase
