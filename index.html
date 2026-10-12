@@ -80,9 +80,11 @@ p{margin:0}
 .btn-line:hover{border-color:var(--ink)}
 .btn-row{display:flex;flex-wrap:wrap;gap:12px}
 
-/* ===== Photo placeholders (swap for <img> when real photos exist) ===== */
+/* ===== Photo frames: each holds an <img> from images/ ===== */
 .ph{position:relative;overflow:hidden;background:#17143A;color:#FFFFFF;isolation:isolate}
 .ph::before{content:"";position:absolute;inset:0;z-index:-1}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.hero-photo .ph img{object-position:50% 38%}
 .ph-note{position:absolute;left:12px;bottom:12px;right:12px;font:500 12.5px/1.35 var(--font-body);color:rgba(255,255,255,.92);background:rgba(10,10,30,.55);padding:6px 10px;border-radius:var(--radius-sm);width:fit-content;max-width:calc(100% - 24px)}
 .ph--pitch{background:linear-gradient(160deg,#0B1F5C 0%,#0000B8 55%,#0000FE 100%)}
 .ph--pitch::before{background:
@@ -97,7 +99,9 @@ p{margin:0}
 .ph--detail::before{background:repeating-radial-gradient(circle at 70% 30%,rgba(255,255,255,.10) 0 1.5px,transparent 1.5px 18px)}
 .ph--studio{background:linear-gradient(180deg,#EDEEF5 0%,#D6D8E6 100%);color:#231F20}
 .ph--studio::before{background:radial-gradient(ellipse 60% 18% at 50% 82%,rgba(35,31,32,.18),transparent 70%)}
-.ph--studio .ph-note{background:rgba(255,255,255,.8);color:#231F20}
+.ph--studio .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.hero-photo .ph img{object-position:50% 38%}
+.ph-note{background:rgba(255,255,255,.8);color:#231F20}
 
 /* ===== Header ===== */
 .header{position:fixed;inset:0 0 auto 0;z-index:50;padding-top:env(safe-area-inset-top,0px);color:#FFFFFF;--focus:#FFFFFF;transition:background-color .2s ease,box-shadow .2s ease,color .2s ease}
@@ -191,7 +195,9 @@ body.menu-open{overflow:hidden}
 .cat .ph{aspect-ratio:1/1;border-radius:var(--radius-md)}
 .cat h3{font-size:clamp(17px,2.2vw,22px);line-height:1.15;margin-top:14px;font-stretch:108%}
 .cat p{margin-top:6px;color:var(--ink-muted);font-size:15px}
-@media (max-width:559px){.cat .ph-note{font-size:11.5px;left:8px;bottom:8px;max-width:calc(100% - 16px)}}
+@media (max-width:559px){.cat .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.hero-photo .ph img{object-position:50% 38%}
+.ph-note{font-size:11.5px;left:8px;bottom:8px;max-width:calc(100% - 16px)}}
 .section-foot{margin-top:clamp(32px,4vw,48px)}
 
 /* ===== Triathlon ===== */
@@ -222,14 +228,14 @@ body.menu-open{overflow:hidden}
 .filters button{min-height:44px;padding:0 18px;border-radius:var(--radius-pill);border:1.5px solid var(--control-border);background:transparent;color:var(--ink);font:600 15px/1 var(--font-body);cursor:pointer}
 .filters button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--surface)}
 .gear-grid{display:grid;gap:20px;grid-template-columns:1fr;list-style:none;margin:0;padding:0}
-@media (max-width:559px){.gear-grid{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:80%;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:calc(-1 * var(--gutter));padding:0 var(--gutter) 10px;scroll-padding-inline:var(--gutter)}.gear-grid .card{scroll-snap-align:start}}
+@media (max-width:559px){.gear-grid{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:80%;overflow-x:auto;contain:paint;scroll-snap-type:x mandatory;margin-inline:calc(-1 * var(--gutter));padding:0 var(--gutter) 10px;scroll-padding-inline:var(--gutter)}.gear-grid .card{scroll-snap-align:start}}
 @media (min-width:560px){.gear-grid{grid-template-columns:1fr 1fr}}
 @media (min-width:900px){.gear-grid{grid-template-columns:repeat(3,1fr)}}
 @media (min-width:1200px){.gear-grid{grid-template-columns:repeat(4,1fr)}}
 .card[hidden]{display:none}
 .card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-md);overflow:hidden}
 .card .ph{aspect-ratio:1/1}
-.badge{position:absolute;top:12px;left:12px;background:#231F20;color:#FFFFFF;font:600 12.5px/1 var(--font-body);padding:7px 10px;border-radius:var(--radius-pill)}
+.badge{position:absolute;z-index:1;top:12px;left:12px;background:#231F20;color:#FFFFFF;font:600 12.5px/1 var(--font-body);padding:7px 10px;border-radius:var(--radius-pill)}
 .card-body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:6px;flex:1}
 .card-cat{font-size:14px;color:var(--ink-muted)}
 .card h3{font-size:20px;line-height:1.2;font-stretch:106%}
@@ -899,7 +905,7 @@ l-5 775 -35 65 c-29 53 -44 69 -80 87 -62 30 -97 34 -153 19z"/>
         </div>
       </div>
       <div class="hero-photo">
-        <div class="ph ph--pitch" role="img" aria-label="Placeholder for a photo of a young footballer striking a ball on a floodlit turf"><span class="ph-note">Placeholder photo: young footballer striking a ball on floodlit turf</span></div>
+        <div class="ph ph--pitch"><img src="images/hero.webp" alt="A teenage footballer in a blue BeThe10 jersey strikes a ball on a floodlit turf at night" width="1122" height="1402" fetchpriority="high" decoding="async"></div>
         <svg class="hero-mark" viewBox="0 0 3060 1950" aria-hidden="true"><use href="#bt-mark"/></svg>
       </div>
     </div>
@@ -920,7 +926,7 @@ l-5 775 -35 65 c-29 53 -44 69 -80 87 -62 30 -97 34 -153 19z"/>
       </div>
       <div class="sport-grid">
         <article class="sport-card sport-card--football on-panel">
-          <div class="ph ph--pitch" role="img" aria-label="Placeholder for a photo of an academy team training on turf"><span class="ph-note">Placeholder photo: academy squad training on turf</span></div>
+          <div class="ph ph--pitch"><img src="images/sport-football.webp" alt="An academy squad in blue BeThe10 training jerseys runs a passing drill at sunset" width="1402" height="1122" loading="lazy" decoding="async"></div>
           <div class="sport-body">
             <h3>Football</h3>
             <p>For the passes you've practised a hundred times and the one that wins the game.</p>
@@ -929,7 +935,7 @@ l-5 775 -35 65 c-29 53 -44 69 -80 87 -62 30 -97 34 -153 19z"/>
           </div>
         </article>
         <article class="sport-card sport-card--tri on-blue">
-          <div class="ph ph--road" role="img" aria-label="Placeholder for a photo of a runner on an empty road at sunrise"><span class="ph-note">Placeholder photo: runner on an empty road at sunrise</span></div>
+          <div class="ph ph--road"><img src="images/sport-triathlon.webp" alt="A woman runs along a tree-lined road at sunrise in a black BeThe10 top" width="1402" height="1122" loading="lazy" decoding="async"></div>
           <div class="sport-body">
             <h3>Triathlon</h3>
             <p>For early alarms, long sets and the quiet discipline of getting a little better every week.</p>
@@ -947,7 +953,7 @@ l-5 775 -35 65 c-29 53 -44 69 -80 87 -62 30 -97 34 -153 19z"/>
         <h2 id="philo-title">Every finish line starts with a first step.</h2>
         <p class="lede">The first training session. The first missed shot. The decision to try again. BeThe10 is built for every stage of that journey, not just the podium at the end of it.</p>
       </div>
-      <div class="ph ph--detail" role="img" aria-label="Placeholder for a close-up photo of hands lacing football boots"><span class="ph-note">Placeholder photo: close-up of boots being laced before training</span></div>
+      <div class="ph ph--detail"><img src="images/philosophy.webp" alt="A young player laces up black BeThe10 football boots before training" width="1086" height="1448" loading="lazy" decoding="async"></div>
     </div>
   </section>
 
@@ -961,10 +967,10 @@ l-5 775 -35 65 c-29 53 -44 69 -80 87 -62 30 -97 34 -153 19z"/>
         <a class="btn btn-blue" href="#gear" data-filter-link="football">See football gear</a>
       </div>
       <ul class="cat-grid" style="list-style:none;margin:0;padding:0">
-        <li class="cat"><div class="ph ph--detail" role="img" aria-label="Placeholder for a product photo of football boots"><span class="ph-note">Placeholder photo: boots on turf, low angle</span></div><h3>Football boots</h3><p>Boots for training and match days.</p></li>
-        <li class="cat"><div class="ph ph--pitch" role="img" aria-label="Placeholder for a product photo of footballs"><span class="ph-note">Placeholder photo: size 4 and size 5 balls on the centre spot</span></div><h3>Footballs</h3><p>Size 4 and size 5.</p></li>
-        <li class="cat"><div class="ph ph--studio" role="img" aria-label="Placeholder for a photo of training cones and bibs"><span class="ph-note">Placeholder photo: cones and agility ladder laid out for a drill</span></div><h3>Training gear</h3><p>Cones, bibs and agility kit for better sessions.</p></li>
-        <li class="cat"><div class="ph ph--studio" role="img" aria-label="Placeholder for a photo of football socks and shin guards"><span class="ph-note">Placeholder photo: socks, shin guards and a ball pump flat-lay</span></div><h3>Socks and accessories</h3><p>The small things that complete the kit.</p></li>
+        <li class="cat"><div class="ph ph--detail"><img src="images/cat-boots.webp" alt="A pair of black BeThe10 football boots on floodlit turf" width="1254" height="1254" loading="lazy" decoding="async"></div><h3>Football boots</h3><p>Boots for training and match days.</p></li>
+        <li class="cat"><div class="ph ph--pitch"><img src="images/product-ball-size4.webp" alt="A white BeThe10 football on a penalty spot at sunset" width="1254" height="1254" loading="lazy" decoding="async"></div><h3>Footballs</h3><p>Size 4 and size 5.</p></li>
+        <li class="cat"><div class="ph ph--studio"><img src="images/cat-training.webp" alt="Blue BeThe10 training cones beside an agility ladder on turf" width="1254" height="1254" loading="lazy" decoding="async"></div><h3>Training gear</h3><p>Cones, bibs and agility kit for better sessions.</p></li>
+        <li class="cat"><div class="ph ph--studio"><img src="images/cat-accessories.webp" alt="BeThe10 football socks, shin guards and a ball pump" width="1254" height="1254" loading="lazy" decoding="async"></div><h3>Socks and accessories</h3><p>The small things that complete the kit.</p></li>
       </ul>
     </div>
   </section>
@@ -979,9 +985,9 @@ l-5 775 -35 65 c-29 53 -44 69 -80 87 -62 30 -97 34 -153 19z"/>
         <a class="btn btn-white" href="#gear" data-filter-link="triathlon">See triathlon gear</a>
       </div>
       <ol class="legs">
-        <li class="leg"><div class="ph ph--water" role="img" aria-label="Placeholder for a photo of a swimmer mid-stroke in a pool"><span class="ph-note">Placeholder photo: swimmer mid-stroke, lane rope in frame</span></div><div class="leg-label"><span class="leg-num" aria-hidden="true">1</span><h3>Swim</h3></div><p>Goggles, swim caps and pool training accessories.</p></li>
-        <li class="leg"><div class="ph ph--road" role="img" aria-label="Placeholder for a photo of a cyclist on an open road"><span class="ph-note">Placeholder photo: cyclist on an open highway, early light</span></div><div class="leg-label"><span class="leg-num" aria-hidden="true">2</span><h3>Bike</h3></div><p>Cycling gloves, bottles and ride accessories.</p></li>
-        <li class="leg"><div class="ph ph--detail" role="img" aria-label="Placeholder for a photo of a runner's shoes on a track"><span class="ph-note">Placeholder photo: runner's stride on a track, shot low</span></div><div class="leg-label"><span class="leg-num" aria-hidden="true">3</span><h3>Run</h3></div><p>Race belts, running socks and hydration.</p></li>
+        <li class="leg"><div class="ph ph--water"><img src="images/tri-swim.webp" alt="A swimmer in a white BeThe10 swim cap mid-stroke in an outdoor pool" width="1448" height="1086" loading="lazy" decoding="async"></div><div class="leg-label"><span class="leg-num" aria-hidden="true">1</span><h3>Swim</h3></div><p>Goggles, swim caps and pool training accessories.</p></li>
+        <li class="leg"><div class="ph ph--road"><img src="images/tri-bike.webp" alt="A cyclist in a black BeThe10 jersey climbs a hill road at dawn" width="1448" height="1086" loading="lazy" decoding="async"></div><div class="leg-label"><span class="leg-num" aria-hidden="true">2</span><h3>Bike</h3></div><p>Cycling gloves, bottles and ride accessories.</p></li>
+        <li class="leg"><div class="ph ph--detail"><img src="images/tri-run.webp" alt="A runner wearing a BeThe10 race belt strides along an athletics track at sunset" width="1448" height="1086" loading="lazy" decoding="async"></div><div class="leg-label"><span class="leg-num" aria-hidden="true">3</span><h3>Run</h3></div><p>Race belts, running socks and hydration.</p></li>
       </ol>
       <div class="transition"><p><strong>In between:</strong> transition, training and recovery accessories that keep the whole week moving.</p></div>
     </div>
@@ -1008,7 +1014,7 @@ l-5 775 -35 65 c-29 53 -44 69 -80 87 -62 30 -97 34 -153 19z"/>
         <button type="button" data-filter="triathlon" aria-pressed="false">Triathlon</button>
       </div>
       <ul class="gear-grid" id="gear-grid" tabindex="0" aria-label="Upcoming gear"></ul>
-      <p class="demo-note">Items marked "Demo item" show the range we're building. They are not yet for sale, and the photos are placeholders.</p>
+      <p class="demo-note">Items marked "Concept design" show the range we're building. They are not yet for sale, and the images are AI-generated concepts, not finished products.</p>
     </div>
   </section>
 
@@ -1050,7 +1056,7 @@ l-5 775 -35 65 c-29 53 -44 69 -80 87 -62 30 -97 34 -153 19z"/>
 
   <section class="section story" id="story" aria-labelledby="story-title">
     <div class="wrap story-grid">
-      <div class="ph ph--pitch" role="img" aria-label="Placeholder for a photo of Bengaluru players walking off a turf at dusk"><span class="ph-note">Placeholder photo: players walking off a Bengaluru turf at dusk</span></div>
+      <div class="ph ph--pitch"><img src="images/story.webp" alt="Young footballers in BeThe10 jerseys walk off the pitch together at dusk" width="1448" height="1086" loading="lazy" decoding="async"></div>
       <div class="story-copy">
         <h2 id="story-title">Made in Bengaluru, for every player still getting better.</h2>
         <p>In football, the number ten is the playmaker: the one who wants the ball when it matters. We think everyone who trains, turns up and tries again has a bit of that in them.</p>
@@ -1087,7 +1093,7 @@ l-5 775 -35 65 c-29 53 -44 69 -80 87 -62 30 -97 34 -153 19z"/>
     </div>
     <div class="footer-base">
       <span>&copy; <span id="year">2026</span> Spodemy. BeThe10 is a brand of Spodemy.</span>
-      <span>Photos on this site are placeholders, not BeThe10 products.</span>
+      <span>Images on this site are AI-generated concepts, not finished BeThe10 products.</span>
     </div>
   </div>
 </footer>
@@ -1124,9 +1130,9 @@ l-5 775 -35 65 c-29 53 -44 69 -80 87 -62 30 -97 34 -153 19z"/>
 <p class="muted">Last updated: October 2026</p>
 <h3>About this website</h3>
 <p>bethe10.in is operated by Spodemy, Bengaluru, Karnataka, India, for its brand BeThe10. By using it, you agree to these terms.</p>
-<p>This is a pre-launch website. Products shown are for information only and are marked as demonstration items. Nothing on this site is an offer for sale, and no orders can be placed here.</p>
+<p>This is a pre-launch website. Products shown are for information only and are marked as concept designs. Nothing on this site is an offer for sale, and no orders can be placed here.</p>
 <h3>Images and content</h3>
-<p>Photos on this site are placeholders and do not show actual BeThe10 products. The BeThe10 name, logo and site content belong to Spodemy and may not be used without permission.</p>
+<p>Images on this site are AI-generated concepts and do not show finished BeThe10 products. The BeThe10 name, logo and site content belong to Spodemy and may not be used without permission.</p>
 <h3>Liability</h3>
 <p>We work to keep information on this site accurate, but details may change before launch. To the extent the law allows, we're not liable for decisions made based on pre-launch information.</p>
 <h3>Governing law</h3>
@@ -1150,16 +1156,17 @@ var SITE = {
   social: [ /* { label: "Instagram", url: "https://instagram.com/..." } */ ]
 };
 
-// Demonstration range. Replace with real products when they're confirmed.
-// Keep `demo: true` until a product is real; it shows the "Demo item" badge.
+// Concept range. Replace with real products and photos when they're confirmed.
+// Keep `concept: true` until a product is real; it shows the "Concept design" badge.
+// Images live in the images/ folder next to this file.
 var PRODUCTS = [
-  { sport: "football",  category: "Football",  name: "Football boots",    desc: "Boots for academy training and weekend matches. Sizes and fit details at launch.", ph: "detail", shot: "boot on turf, side profile", demo: true },
-  { sport: "football",  category: "Football",  name: "Football, size 4",  desc: "The smaller match-ball size, commonly used in junior football.", ph: "pitch", shot: "size 4 ball on a penalty spot", demo: true },
-  { sport: "football",  category: "Football",  name: "Football, size 5",  desc: "The standard match-ball size for older youth and adult football.", ph: "pitch", shot: "size 5 ball under floodlights", demo: true },
-  { sport: "football",  category: "Football",  name: "Football socks",    desc: "Training and match socks. Colours and sizes at launch.", ph: "studio", shot: "socks folded, flat-lay", demo: true },
-  { sport: "triathlon", category: "Running",   name: "Running accessories", desc: "Everyday run kit such as belts, bottles and socks. Final range at launch.", ph: "road", shot: "race belt and bottle on a road", demo: true },
-  { sport: "triathlon", category: "Cycling",   name: "Cycling gloves",    desc: "Gloves for training rides. Sizes at launch.", ph: "detail", shot: "gloved hands on handlebars", demo: true },
-  { sport: "triathlon", category: "Swimming",  name: "Swimming goggles",  desc: "Goggles for pool sessions and open-water training. Details at launch.", ph: "water", shot: "goggles on a pool edge", demo: true }
+  { sport: "football",  category: "Football",  name: "Football boots",    desc: "Boots for academy training and weekend matches. Sizes and fit details at launch.", img: "images/product-boots.webp", alt: "Black BeThe10 football boot, side view", concept: true },
+  { sport: "football",  category: "Football",  name: "Football, size 4",  desc: "The smaller match-ball size, commonly used in junior football.", img: "images/product-ball-size4.webp", alt: "White BeThe10 football on a penalty spot at sunset", concept: true },
+  { sport: "football",  category: "Football",  name: "Football, size 5",  desc: "The standard match-ball size for older youth and adult football.", img: "images/product-ball-size5.webp", alt: "White and blue BeThe10 football under floodlights", concept: true },
+  { sport: "football",  category: "Football",  name: "Football socks",    desc: "Training and match socks. Colours and sizes at launch.", img: "images/product-socks.webp", alt: "White and blue BeThe10 football socks", concept: true },
+  { sport: "triathlon", category: "Running",   name: "Running accessories", desc: "Everyday run kit such as belts, bottles and socks. Final range at launch.", img: "images/product-running.webp", alt: "BeThe10 race belt and water bottle on a road at sunrise", concept: true },
+  { sport: "triathlon", category: "Cycling",   name: "Cycling gloves",    desc: "Gloves for training rides. Sizes at launch.", img: "images/product-gloves.webp", alt: "Hands in black BeThe10 cycling gloves on road-bike handlebars", concept: true },
+  { sport: "triathlon", category: "Swimming",  name: "Swimming goggles",  desc: "Goggles for pool sessions and open-water training. Details at launch.", img: "images/product-goggles.webp", alt: "BeThe10 swimming goggles on the edge of a pool", concept: true }
 ];
 
 (function () {
@@ -1214,13 +1221,11 @@ var PRODUCTS = [
 
   // Gear showcase
   var grid = document.getElementById("gear-grid");
-  var notes = { pitch: "pitch", water: "water", road: "road", detail: "detail", studio: "studio" };
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   grid.innerHTML = PRODUCTS.map(function (p) {
     return '<li class="card" data-sport="' + esc(p.sport) + '">' +
-      '<div class="ph ph--' + (notes[p.ph] || "studio") + '" role="img" aria-label="Placeholder photo for ' + esc(p.name) + '">' +
-      (p.demo ? '<span class="badge">Demo item</span>' : "") +
-      '<span class="ph-note">Placeholder photo: ' + esc(p.shot) + '</span></div>' +
+      '<div class="ph ph--studio"><img src="' + esc(p.img) + '" alt="' + esc(p.alt) + '" width="1254" height="1254" loading="lazy" decoding="async">' +
+      (p.concept ? '<span class="badge">Concept design</span>' : "") + '</div>' +
       '<div class="card-body"><span class="card-cat">' + esc(p.category) + '</span><h3>' + esc(p.name) + '</h3><p>' + esc(p.desc) + '</p>' +
       '<a class="btn btn-line" href="#join" data-interest="' + esc(p.sport) + '">Get updates<span class="sr"> about ' + esc(p.name) + '</span></a></div></li>';
   }).join("");
